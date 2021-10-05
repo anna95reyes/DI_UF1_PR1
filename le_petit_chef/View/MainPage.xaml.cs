@@ -39,6 +39,7 @@ namespace le_petit_chef
             cbxUnitatMesura.ItemsSource = Enum.GetValues(typeof(Unitat)).Cast<Unitat>();
             
             inicialitzacioLlistaPlats();
+            lsbPlats.ItemsSource = plats;
 
             desactivarBotons();
 
@@ -138,6 +139,34 @@ namespace le_petit_chef
             activarDesactivarButtonAltaIngredients();
         }
 
-        
+        private void lsbPlats_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void txtCodiPlat_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void txtNomPlat_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void txtDescPlat_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void btnAltaPlat_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnBaixaPlat_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

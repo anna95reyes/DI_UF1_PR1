@@ -47,7 +47,6 @@ namespace le_petit_chef.Model
 
         //Validacio del nom, retornant true si te 2 caracters o mes i retornant false en cas contrari.
         //Poso 2 caracters encomptes de 4 per poder afegir ingredients com: ou, oli, ...
-        //hola
         public static bool validaNom(string nom)
         {
             return nom.Length >= NOM_CARACTERS_MINIM;

@@ -1,0 +1,78 @@
+﻿<Page
+    x:Class="le_petit_chef.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:le_petit_chef"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    Loaded="Page_Loaded">
+
+    <Grid Background="Azure">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
+        <!-- ingredients -->
+        <Grid Padding="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.1*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"
+                       FontSize="40" Foreground ="#FF00CDFF">
+                <Bold>Ingredients</Bold>
+            </TextBlock>
+            <ListBox x:Name="lsbIngredients" SelectionChanged="lsbIngredients_SelectionChanged" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"
+                     Margin="10" Background="#FFCEFFCA"></ListBox>
+
+            <Grid Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="0.6*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" VerticalAlignment="Center" Margin="5">
+                    <Bold>Ingredient:</Bold>
+                </TextBlock>
+                <TextBox x:Name="txtNouIngredient" Grid.Column="1" VerticalAlignment="Center" Margin="5, 5, 10, 5" TextChanged="txtNouIngredient_TextChanged"></TextBox>
+                <TextBlock Grid.Column="2" VerticalAlignment="Center" Margin="5">
+                    <Bold>Unitat:</Bold>
+                </TextBlock>
+                <ComboBox x:Name="cbxUnitatMesura" Grid.Column="3" VerticalAlignment="Center" Margin="5" SelectionChanged="cbxUnitatMesura_SelectionChanged"></ComboBox>
+            </Grid>
+            
+            <Button x:Name="btnAltaIngredient" Content="Alta Ingredient" Grid.Column="0" Grid.Row="3" Margin="10" HorizontalAlignment="Center"
+                    Click="btnAltaIngredient_Click" BorderBrush="#FF00CDFF" Background="#FF73F3EC"></Button>
+            <Button x:Name="btnBaixaIngredient" Content="Baixa Ingredient" Grid.Column="1" Grid.Row="3" Margin="10" HorizontalAlignment="Center"
+                    Click="btnBaixaIngredient_Click" BorderBrush="#FF00CDFF" Background="#FF73F3EC"></Button>
+        </Grid>
+
+        <!-- plats -->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.1*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+        </Grid>
+
+        <!-- informe de compres -->
+    </Grid>
+</Page>

@@ -20,16 +20,17 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"
                            FontSize="40" Foreground ="#FF00CDFF">
                     <Bold>Ingredients</Bold>
             </TextBlock>
-            <TextBlock Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"
+            <TextBlock Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"
                            FontSize="40" Foreground ="#FF00CDFF">
                     <Bold>Plats</Bold>
             </TextBlock>
-            <TextBlock Grid.Column="2"  HorizontalAlignment="Center" VerticalAlignment="Center"
+            <TextBlock Grid.Column="3"  HorizontalAlignment="Center" VerticalAlignment="Center"
                            FontSize="40" Foreground ="#FF00CDFF">
                     <Bold>Informe de Compres</Bold>
             </TextBlock>
@@ -37,6 +38,7 @@
 
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -56,23 +58,25 @@
 
                 
                 <ListBox x:Name="lsbIngredients" SelectionChanged="lsbIngredients_SelectionChanged" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"
-                         Margin="10" Background="#FFCEFFCA"></ListBox>
+                         Margin="20, 10, 10, 10" Background="#FFCEFFCA"></ListBox>
 
                 <Grid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" Margin="10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="0.6*"/>
+                        <ColumnDefinition Width="auto"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0" VerticalAlignment="Center" Margin="5">
                         <Bold>Ingredient:</Bold>
                     </TextBlock>
-                    <TextBox x:Name="txtNouIngredient" Grid.Column="1" VerticalAlignment="Center" Margin="5, 5, 10, 5" TextChanged="txtNouIngredient_TextChanged"></TextBox>
+                    <TextBox x:Name="txtNouIngredient" Grid.Column="1" VerticalAlignment="Center" Margin="5, 5, 10, 5" 
+                             TextChanged="txtNouIngredient_TextChanged" HorizontalAlignment="Stretch"></TextBox>
                     <TextBlock Grid.Column="2" VerticalAlignment="Center" Margin="5">
                         <Bold>Unitat:</Bold>
                     </TextBlock>
-                    <ComboBox x:Name="cbxUnitatMesura" Grid.Column="3" VerticalAlignment="Center" Margin="5" SelectionChanged="cbxUnitatMesura_SelectionChanged"></ComboBox>
+                    <ComboBox x:Name="cbxUnitatMesura" Grid.Column="3" VerticalAlignment="Center" Margin="5" 
+                              SelectionChanged="cbxUnitatMesura_SelectionChanged" Width="70"></ComboBox>
                 </Grid>
             
                 <Button x:Name="btnAltaIngredient" Content="Alta Ingredient" Grid.Column="0" Grid.Row="2" Margin="10" HorizontalAlignment="Center"
@@ -82,7 +86,7 @@
             </Grid>
 
             <!-- plats -->
-            <Grid Grid.Column="1">
+            <Grid Grid.Column="1" Grid.ColumnSpan="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -93,14 +97,14 @@
                 
                 <Grid Grid.Column="0" Grid.Row="1">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="0.2*"/>
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
                     <ListBox x:Name="lsbPlats" SelectionChanged="lsbPlats_SelectionChanged" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" 
@@ -113,28 +117,51 @@
                         <Bold>Nom:</Bold>
                     </TextBlock>
                     <TextBox x:Name="txtNomPlat" TextChanged="txtNomPlat_TextChanged"  Grid.Column="1" Grid.Row="2" Margin="5,5,10,5"></TextBox>
-                    <TextBlock Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5">
+                    <TextBlock Grid.Column="0" Grid.Row="3" VerticalAlignment="Top"  HorizontalAlignment="Right" Margin="15,5,5,5">
                         <Bold>Descripcio:</Bold>
                     </TextBlock>
-                    <TextBox x:Name="txtDescPlat" TextChanged="txtDescPlat_TextChanged"  Grid.Column="1" Grid.Row="3" Margin="5,5,10,5"></TextBox>
-                    <Button x:Name="btnAltaPlat" Content="Alta Ingredient" Grid.Column="0" Grid.Row="4" Margin="10" HorizontalAlignment="Center"
-                        Click="btnAltaPlat_Click"  BorderBrush="#FF00CDFF" Background="#FF73F3EC"></Button>
-                    <Button x:Name="btnBaixaPlat" Content="Baixa Ingredient" Grid.Column="1" Grid.Row="4" Margin="10" HorizontalAlignment="Center"
-                        Click="btnBaixaPlat_Click"  BorderBrush="#FF00CDFF" Background="#FF73F3EC"></Button>
+                    <TextBox x:Name="txtDescPlat" TextChanged="txtDescPlat_TextChanged"  Grid.Column="1" Grid.Row="3" Margin="5,5,10,5"
+                             AcceptsReturn="True" TextWrapping="Wrap"></TextBox>
+                    <Grid Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="btnAltaPlat" Content="Alta Plat"  Grid.Column="0" Margin="10" HorizontalAlignment="Center"
+                            Click="btnAltaPlat_Click"  BorderBrush="#FF00CDFF" Background="#FF73F3EC"></Button>
+                        <Button x:Name="btnBaixaPlat" Content="Baixa Plat" Grid.Column="1" Margin="10" HorizontalAlignment="Center"
+                            Click="btnBaixaPlat_Click"  BorderBrush="#FF00CDFF" Background="#FF73F3EC"></Button>
+                    </Grid>
                 </Grid>
 
                 <Grid Grid.Column="1" Grid.Row="2">
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
+                    <ListBox x:Name="lsbIngredientsPlat" SelectionChanged="lsbIngredientsPlat_SelectionChanged" Grid.Row="0" Grid.ColumnSpan="2"
+                             Margin="10" Background="#FFCEFFCA"></ListBox>
+                    <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="15,5,5,5">
+                        <Bold>Ingredient:</Bold>
+                    </TextBlock>
+                    <ComboBox x:Name="cbxIngredientsPlat" SelectionChanged="cbxIngredientsPlat_SelectionChanged"  Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" Margin="10"></ComboBox>
+                    <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5">
+                        <Bold>Quantitat:</Bold>
+                    </TextBlock>
+                    <TextBox x:Name="txtQtatIngredientsPlat" TextChanged="txtQtatIngredientsPlat_TextChanged"  Grid.Row="2" Grid.Column="1" Margin="10"></TextBox>
+                    <Button x:Name="btnAfegirIngredientPlat" Content="Afegir Ingredient" Grid.Row="3" Grid.ColumnSpan="2" Margin="10" HorizontalAlignment="Center"
+                        Click="btnAfegirIngredientPlat_Click"  BorderBrush="#FF00CDFF" Background="#FF73F3EC"></Button>
                 </Grid>
             </Grid>
 
             <!-- informe de compres -->
-            <Grid Padding="5" Grid.Column="2">
+            <Grid Padding="5" Grid.Column="3">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>

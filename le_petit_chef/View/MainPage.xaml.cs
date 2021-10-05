@@ -79,6 +79,9 @@ namespace le_petit_chef
         {
             btnAltaIngredient.IsEnabled = false;
             btnBaixaIngredient.IsEnabled = false;
+            btnAltaPlat.IsEnabled = false;
+            btnBaixaPlat.IsEnabled = false;
+            btnAfegirIngredientPlat.IsEnabled = false;
         }
 
         private bool validarFormulariAltaIngredients()
@@ -141,30 +144,84 @@ namespace le_petit_chef
 
         private void lsbPlats_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            if (lsbPlats.SelectedValue != null)
+            {
+                activarDesactivarButtonBaixaPlats();
+            }
         }
 
+        private void activarDesactivarButtonBaixaPlats()
+        {
+            btnBaixaPlat.IsEnabled = plats.Count > 0 && lsbPlats.SelectedValue != null;
+        }
+
+        //TODO: informar del format que s'ha de posar, AA0000
         private void txtCodiPlat_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            activarDesactivarButtonAltaPlats();
         }
 
         private void txtNomPlat_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            activarDesactivarButtonAltaPlats();
         }
 
         private void txtDescPlat_TextChanged(object sender, TextChangedEventArgs e)
         {
+            activarDesactivarButtonAltaPlats();
+        }
 
+        private void activarDesactivarButtonAltaPlats()
+        {
+            btnAltaPlat.IsEnabled = validarFormulariAltaPlats();
+        }
+
+        //TODO: falta comprobar els repetits
+        private bool validarFormulariAltaPlats()
+        {
+            return Plat.validaCodi(txtCodiPlat.Text) && Plat.validaNom(txtNomPlat.Text);
         }
 
         private void btnAltaPlat_Click(object sender, RoutedEventArgs e)
         {
+            Plat nouPlat = new Plat(txtCodiPlat.Text, txtNomPlat.Text, txtDescPlat.Text);
+            plats.Add(nouPlat);
+            buidarCampsFormulariAltaPlats();
+            lsbPlats.SelectedItem = null;
+        }
 
+        private void buidarCampsFormulariAltaPlats()
+        {
+            txtCodiPlat.Text = "";
+            txtNomPlat.Text = "";
+            txtDescPlat.Text = "";
         }
 
         private void btnBaixaPlat_Click(object sender, RoutedEventArgs e)
+        {
+            if (lsbPlats.SelectedValue != null)
+            {
+                plats.Remove((Plat)lsbPlats.SelectedItem);
+            }
+            activarDesactivarButtonBaixaPlats();
+        }
+
+        private void lsbIngredientsPlat_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void cbxIngredientsPlat_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void txtQtatIngredientsPlat_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void btnAfegirIngredientPlat_Click(object sender, RoutedEventArgs e)
         {
 
         }

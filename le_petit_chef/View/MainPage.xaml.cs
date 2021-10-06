@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Text.RegularExpressions;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -34,42 +35,78 @@ namespace le_petit_chef
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            inicialitzacioLlistaIngredients();
+            inicialitzacioLlistes();
             lsbIngredients.ItemsSource = ingredients;
             cbxUnitatMesura.ItemsSource = Enum.GetValues(typeof(Unitat)).Cast<Unitat>();
-            
-            inicialitzacioLlistaPlats();
             lsbPlats.ItemsSource = plats;
+            cbxIngredientsPlat.ItemsSource = ingredients;
 
             desactivarBotons();
 
+
         }
 
-        private void inicialitzacioLlistaIngredients()
+        private void inicialitzacioLlistes()
         {
             Ingredient pebrotVermell = new Ingredient("pebrot vermell", Unitat.UDS);
             Ingredient tomaquet = new Ingredient("tomaquet", Unitat.UDS);
-            Ingredient graAll = new Ingredient("gra d'all", Unitat.UDS);
+            Ingredient all = new Ingredient("all", Unitat.UDS);
             Ingredient arroz = new Ingredient("arroz", Unitat.G);
             Ingredient oli = new Ingredient("oli", Unitat.ML);
-            Ingredient formatge = new Ingredient("formatge", Unitat.G);
             Ingredient brouMarisc = new Ingredient("brou de marisc", Unitat.ML);
+            Ingredient mozzarella = new Ingredient("mozzarella", Unitat.G);
+            Ingredient salsaTomaquet = new Ingredient("salsaTomaquet", Unitat.G);
+            Ingredient formatgeBlau = new Ingredient("formatge blau", Unitat.G);
+            Ingredient formatgeParmesa = new Ingredient("formatge parmesà", Unitat.G);
+            Ingredient formatgeRuloCabra = new Ingredient("formatge rulo de cabra", Unitat.G);
+            Ingredient orenga = new Ingredient("orenga", Unitat.G);
+            Ingredient farina = new Ingredient("farina", Unitat.G);
+            Ingredient llevat = new Ingredient("llevat", Unitat.G);
+            Ingredient sal = new Ingredient("sal", Unitat.G);
+            Ingredient aigua = new Ingredient("aigua", Unitat.ML);
             Ingredient ou = new Ingredient("ou", Unitat.UDS);
+            Ingredient llet = new Ingredient("llet", Unitat.UDS);
 
             ingredients.Add(pebrotVermell);
             ingredients.Add(tomaquet);
-            ingredients.Add(graAll);
+            ingredients.Add(all);
             ingredients.Add(arroz);
             ingredients.Add(oli);
-            ingredients.Add(formatge);
             ingredients.Add(brouMarisc);
+            ingredients.Add(mozzarella);
+            ingredients.Add(salsaTomaquet);
+            ingredients.Add(formatgeBlau);
+            ingredients.Add(formatgeParmesa);
+            ingredients.Add(formatgeRuloCabra);
+            ingredients.Add(orenga);
+            ingredients.Add(farina);
+            ingredients.Add(llevat);
+            ingredients.Add(sal);
+            ingredients.Add(aigua);
             ingredients.Add(ou);
-        }
+            ingredients.Add(llet);
 
-        private void inicialitzacioLlistaPlats()
-        {
             Plat paella = new Plat("AA0001", "Paella");
             Plat pizza = new Plat("AA0002", "Pizza");
+
+            paella.afegirIngredient(arroz, 100);
+            paella.afegirIngredient(brouMarisc, 250);
+            paella.afegirIngredient(pebrotVermell, 1);
+            paella.afegirIngredient(all, 2);
+            paella.afegirIngredient(oli, 30);
+            paella.afegirIngredient(sal, 2);
+
+            pizza.afegirIngredient(salsaTomaquet, 150);
+            pizza.afegirIngredient(mozzarella, 150);
+            pizza.afegirIngredient(formatgeBlau, 70);
+            pizza.afegirIngredient(formatgeParmesa, 70);
+            pizza.afegirIngredient(formatgeRuloCabra, 70);
+            pizza.afegirIngredient(orenga, 15);
+            pizza.afegirIngredient(farina, 300);
+            pizza.afegirIngredient(llevat, 7);
+            pizza.afegirIngredient(sal, 2);
+            pizza.afegirIngredient(oli, 15);
+            pizza.afegirIngredient(aigua, 200);
 
             plats.Add(paella);
             plats.Add(pizza);
@@ -127,9 +164,26 @@ namespace le_petit_chef
         {
             if (lsbIngredients.SelectedValue != null)
             {
-                ingredients.Remove((Ingredient)lsbIngredients.SelectedItem);
+                if (!ingredientDinsDelPlat((Ingredient)lsbIngredients.SelectedItem))
+                {
+                    ingredients.Remove((Ingredient)lsbIngredients.SelectedItem);
+                }
+                
             }
             activarDesactivarButtonBaixaIngredients();
+        }
+
+        private bool ingredientDinsDelPlat(Ingredient ingredient)
+        {
+            for (int i = 0; i < plats.Count; i++)
+            {
+                if (plats[i].getIngredients().ContainsKey(ingredient))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         private void txtNouIngredient_TextChanged(object sender, TextChangedEventArgs e)
@@ -142,12 +196,29 @@ namespace le_petit_chef
             activarDesactivarButtonAltaIngredients();
         }
 
+        //TODO: representar be la llista dels ingredients dins del plat, en format: [nom ingredient] [quantitat] [unitat]
         private void lsbPlats_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (lsbPlats.SelectedValue != null)
             {
+                lsbIngredientsPlat.ItemsSource = plats[lsbPlats.SelectedIndex].getIngredients();
                 activarDesactivarButtonBaixaPlats();
+                activarDesactivarButtonAfegirIngredient();
             }
+        }
+
+        private void activarDesactivarButtonAfegirIngredient()
+        {
+            btnAfegirIngredientPlat.IsEnabled = validarFormulariAfegirIngredients();
+        }
+
+        private bool validarFormulariAfegirIngredients()
+        {
+            if (txtQtatIngredientsPlat.Text != "")
+            {
+                return cbxIngredientsPlat.SelectedItem != null && Convert.ToInt32(txtQtatIngredientsPlat.Text) > 0 && lsbPlats.SelectedItem != null;
+            }
+            return false;
         }
 
         private void activarDesactivarButtonBaixaPlats()
@@ -155,7 +226,6 @@ namespace le_petit_chef
             btnBaixaPlat.IsEnabled = plats.Count > 0 && lsbPlats.SelectedValue != null;
         }
 
-        //TODO: informar del format que s'ha de posar, AA0000
         private void txtCodiPlat_TextChanged(object sender, TextChangedEventArgs e)
         {
             activarDesactivarButtonAltaPlats();
@@ -176,10 +246,9 @@ namespace le_petit_chef
             btnAltaPlat.IsEnabled = validarFormulariAltaPlats();
         }
 
-        //TODO: falta comprobar els repetits
         private bool validarFormulariAltaPlats()
         {
-            return Plat.validaCodi(txtCodiPlat.Text) && Plat.validaNom(txtNomPlat.Text);
+            return Plat.validaCodi(txtCodiPlat.Text) && Plat.validaNom(txtNomPlat.Text) && !plats.Contains(new Plat(txtCodiPlat.Text, txtNomPlat.Text, txtDescPlat.Text));
         }
 
         private void btnAltaPlat_Click(object sender, RoutedEventArgs e)
@@ -206,24 +275,37 @@ namespace le_petit_chef
             activarDesactivarButtonBaixaPlats();
         }
 
-        private void lsbIngredientsPlat_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
         private void cbxIngredientsPlat_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            activarDesactivarButtonAfegirIngredient();
         }
 
         private void txtQtatIngredientsPlat_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            if (!Regex.IsMatch(txtQtatIngredientsPlat.Text, "^[0-9]{1,}$"))
+            {
+                txtQtatIngredientsPlat.Text = "";
+            }
+            activarDesactivarButtonAfegirIngredient();
         }
 
+        //TODO: actualitzar la llista de diccionaris
         private void btnAfegirIngredientPlat_Click(object sender, RoutedEventArgs e)
         {
+            if (lsbPlats.SelectedValue != null)
+            {
+                if (!ingredientDinsDelPlat((Ingredient)cbxIngredientsPlat.SelectedItem))
+                {
+                    plats[lsbPlats.SelectedIndex].afegirIngredient((Ingredient)cbxIngredientsPlat.SelectedItem, Convert.ToInt32(txtQtatIngredientsPlat.Text));
+                }
+                netejarFormulariIngredientPlat();
+            }
+        }
 
+        private void netejarFormulariIngredientPlat()
+        {
+            cbxIngredientsPlat.SelectedItem = null;
+            txtQtatIngredientsPlat.Text = "";
         }
     }
 }

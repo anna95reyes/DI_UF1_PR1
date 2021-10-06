@@ -20,6 +20,7 @@ namespace le_petit_chef.Model
         {
             Codi = codi;
             Nom = nom;
+            ingredients = new Dictionary<Ingredient, int>();
         }
 
         public Plat(string codi, string nom, string descripcio)
@@ -27,6 +28,7 @@ namespace le_petit_chef.Model
             Codi = codi;
             Nom = nom;
             Descripcio = descripcio;
+            ingredients = new Dictionary<Ingredient, int>();
         }
 
         public string Codi { 
@@ -64,6 +66,22 @@ namespace le_petit_chef.Model
             }
         }
 
+        public void afegirIngredient(Ingredient nouIngredient, int qtat)
+        {
+            if (IngredientRepetit(nouIngredient)) throw new Exception("L'ingredient no pot estar repetit.");
+            ingredients.Add(nouIngredient, qtat);
+        }
+
+        public Dictionary<Ingredient, int> getIngredients()
+        {
+            return ingredients;
+        }
+
+        private bool IngredientRepetit(Ingredient nouIngredient)
+        {
+            return ingredients.ContainsKey(new Ingredient(nouIngredient.Nom, Unitat.G));
+        }
+
         // Validacio del Codi en format AA0000, dos lletres i 4 xifres.
         public static bool validaCodi(string codi)
         {
@@ -99,5 +117,6 @@ namespace le_petit_chef.Model
         {
             return NomComplet;
         }
+
     }
 }

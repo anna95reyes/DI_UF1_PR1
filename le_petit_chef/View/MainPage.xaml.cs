@@ -159,7 +159,6 @@ namespace le_petit_chef
             cbxUnitatMesura.SelectedItem = null;
         }
 
-        //TODO: No hem de poder esborrar un ingredient que s’està fent servir a un plat !
         private void btnBaixaIngredient_Click(object sender, RoutedEventArgs e)
         {
             if (lsbIngredients.SelectedValue != null)
@@ -306,6 +305,28 @@ namespace le_petit_chef
         {
             cbxIngredientsPlat.SelectedItem = null;
             txtQtatIngredientsPlat.Text = "";
+        }
+
+        private void sdrComanda_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
+        {
+            if (txbSliderComanda != null)
+            {
+                txbSliderComanda.Text = sdrComanda.Value.ToString();
+                btnComandaCompres.IsEnabled = sdrComanda.Value != 0;
+            }
+        }
+
+        //TODO: programar funcionalitat boto Comandes Compres
+        private void btnComandaCompres_Click(object sender, RoutedEventArgs e)
+        {
+            /*for (int i = 0; i < plats.Count; i++)
+            {
+                plats[i].getIngredients();
+
+                ingredientDinsDelPlat(ingredient);
+            }*/
+
+            
         }
     }
 }

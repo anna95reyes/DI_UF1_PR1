@@ -72,6 +72,7 @@ namespace le_petit_chef.Model
             ingredients.Add(nouIngredient, qtat);
         }
 
+        //TODO: convertir en una lista .ToList
         public Dictionary<Ingredient, int> getIngredients()
         {
             return ingredients;

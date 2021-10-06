@@ -166,12 +166,24 @@
             <Grid Padding="5" Grid.Column="3">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="1.5*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
-                
+                <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Background="#FFCEFFCA">
+                    <TextBlock x:Name="txbComanda" TextWrapping="Wrap" Margin="10"></TextBlock>
+                </Grid>
+                <TextBlock Grid.Row="1" Grid.Column="0"  VerticalAlignment="Center" Margin="10">
+                        <Bold>Qtat. plats:</Bold>
+                </TextBlock>
+                <Slider x:Name="sdrComanda" Grid.Row="1" Grid.Column="1" Minimum="0" Maximum="300" Value="1" ValueChanged="sdrComanda_ValueChanged" Margin="10"></Slider>
+                <TextBlock x:Name="txbSliderComanda" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" Margin="10" Text="1" FontWeight="Black"></TextBlock>
+                <Button x:Name="btnComandaCompres" Content="Informe de Compres" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" HorizontalAlignment="Center"
+                        Click="btnComandaCompres_Click"  BorderBrush="#FF00CDFF" Background="#FF73F3EC"></Button>
             </Grid>
         </Grid>
     </Grid>

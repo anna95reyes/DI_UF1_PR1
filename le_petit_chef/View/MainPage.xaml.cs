@@ -128,7 +128,7 @@ namespace le_petit_chef
 
         private void activarDesactivarButtonBaixaIngredients()
         {
-            btnBaixaIngredient.IsEnabled = ingredients.Count > 0 && lsbIngredients.SelectedValue != null;
+            btnBaixaIngredient.IsEnabled = ingredients.Count > 0 && lsbIngredients.SelectedValue != null && !ingredientDinsDelPlat((Ingredient)lsbIngredients.SelectedItem);
         }
 
         private void activarDesactivarButtonAltaIngredients()
@@ -163,11 +163,7 @@ namespace le_petit_chef
         {
             if (lsbIngredients.SelectedValue != null)
             {
-                if (!ingredientDinsDelPlat((Ingredient)lsbIngredients.SelectedItem))
-                {
-                    ingredients.Remove((Ingredient)lsbIngredients.SelectedItem);
-                }
-                
+                ingredients.Remove((Ingredient)lsbIngredients.SelectedItem);
             }
             activarDesactivarButtonBaixaIngredients();
         }
@@ -176,7 +172,7 @@ namespace le_petit_chef
         {
             for (int i = 0; i < plats.Count; i++)
             {
-                if (plats[i].getIngredients().ContainsKey(ingredient))
+                if (plats[i].Ingredients.ContainsKey(ingredient))
                 {
                     return true;
                 }
@@ -200,7 +196,7 @@ namespace le_petit_chef
         {
             if (lsbPlats.SelectedValue != null)
             {
-                lsbIngredientsPlat.ItemsSource = plats[lsbPlats.SelectedIndex].getIngredients();
+                lsbIngredientsPlat.ItemsSource = plats[lsbPlats.SelectedIndex].getLlistaIngredients();
                 activarDesactivarButtonBaixaPlats();
                 activarDesactivarButtonAfegirIngredient();
             }
@@ -296,6 +292,7 @@ namespace le_petit_chef
                 if (!ingredientDinsDelPlat((Ingredient)cbxIngredientsPlat.SelectedItem))
                 {
                     plats[lsbPlats.SelectedIndex].afegirIngredient((Ingredient)cbxIngredientsPlat.SelectedItem, Convert.ToInt32(txtQtatIngredientsPlat.Text));
+                    lsbIngredientsPlat.ItemsSource = plats[lsbPlats.SelectedIndex].getLlistaIngredients();
                 }
                 netejarFormulariIngredientPlat();
             }
@@ -319,14 +316,49 @@ namespace le_petit_chef
         //TODO: programar funcionalitat boto Comandes Compres
         private void btnComandaCompres_Click(object sender, RoutedEventArgs e)
         {
-            /*for (int i = 0; i < plats.Count; i++)
-            {
-                plats[i].getIngredients();
-
-                ingredientDinsDelPlat(ingredient);
-            }*/
-
+            /*
             
+            ObservableCollection<String> llistaIngredients = new ObservableCollection<String>();
+            List<Ingredient> ingredientsDins = new List<Ingredient>();
+            ingredientsDins = ingredients.Keys.ToList();
+            for (int i = 0; i < ingredients.Count; i++)
+            {
+                llistaIngredients.Add(ingredientsDins[i].Nom + " " + ingredients[ingredientsDins[i]].ToString() + " " 
+                    + EnumDescriptionConverter.getDesc(ingredientsDins[i].Unitat));
+            }
+
+            */
+
+            String sortida = "";
+            Dictionary<Ingredient, int> ingredientsAComprar = new Dictionary<Ingredient, int>();
+            for (int i = 0; i < plats.Count; i++)
+            {
+                /*
+                List<Ingredient> ingredientsDinsPlat = new List<Ingredient>();
+                ingredientsDinsPlat = plats[i].Ingredients.Keys.ToList();
+                List<Int32> qtatIngredientDinsPlat = new List<Int32>();
+                int j = 0;
+                foreach (Ingredient ing in ingredientsDinsPlat)
+                {
+                    if (ingredientsAComprar.ContainsKey(ing))
+                    {
+                        ingredientsAComprar[ing] = qtatIngredientDinsPlat[j] + ingredientsAComprar[ing];
+                    }
+                    else
+                    {
+                        ingredientsAComprar.Add(ing, ingredientsAComprar[ing]);
+                    }
+                    j++;
+                }
+                */
+            }
+
+            int q = 1;
+            foreach (KeyValuePair<Ingredient,int> ing in ingredientsAComprar)
+            {
+                sortida += q + ".-" + ing.Key.Nom + ": " + ing.Value + " " + EnumDescriptionConverter.getDesc(ing.Key.Unitat) + "\n";
+                q++;
+            }
         }
     }
 }

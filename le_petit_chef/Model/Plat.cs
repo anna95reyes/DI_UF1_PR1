@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -9,6 +11,7 @@ namespace le_petit_chef.Model
 {
     public class Plat
     {
+
         String codi; // (en format AA0000, dos lletres i 4 xifres)
         String nom; // (mínim 5 lletres)
         String descripcio; // (opcional)
@@ -43,8 +46,6 @@ namespace le_petit_chef.Model
             }
         }
 
-        
-
         public string Nom {
             get
             {
@@ -66,16 +67,35 @@ namespace le_petit_chef.Model
             }
         }
 
+        public Dictionary<Ingredient, int> Ingredients
+        {
+            get
+            {
+                return ingredients;
+            }
+            set
+            {
+                ingredients = value;
+            }
+        }
+
         public void afegirIngredient(Ingredient nouIngredient, int qtat)
         {
             if (IngredientRepetit(nouIngredient)) throw new Exception("L'ingredient no pot estar repetit.");
             ingredients.Add(nouIngredient, qtat);
         }
 
-        //TODO: convertir en una lista .ToList
-        public Dictionary<Ingredient, int> getIngredients()
+        public ObservableCollection<String> getLlistaIngredients()
         {
-            return ingredients;
+            ObservableCollection<String> llistaIngredients = new ObservableCollection<String>();
+            List<Ingredient> ingredientsDins = new List<Ingredient>();
+            ingredientsDins = ingredients.Keys.ToList();
+            for (int i = 0; i < ingredients.Count; i++)
+            {
+                llistaIngredients.Add(ingredientsDins[i].Nom + " " + ingredients[ingredientsDins[i]].ToString() + " " 
+                    + EnumDescriptionConverter.getDesc(ingredientsDins[i].Unitat));
+            }
+            return llistaIngredients;
         }
 
         private bool IngredientRepetit(Ingredient nouIngredient)

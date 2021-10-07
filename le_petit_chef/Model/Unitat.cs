@@ -12,8 +12,5 @@ namespace le_petit_chef.Model
         [Description("uds.")] UDS,
         [Description("g.")] G,
         [Description("ml.")] ML
-
-        // al codi posar:
-        // EnumDescriptionConverter.getDesc(pal);
     }
 }

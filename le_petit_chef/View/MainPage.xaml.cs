@@ -42,8 +42,6 @@ namespace le_petit_chef
             cbxIngredientsPlat.ItemsSource = ingredients;
 
             desactivarBotons();
-
-
         }
 
         private void inicialitzacioLlistes()
@@ -55,7 +53,7 @@ namespace le_petit_chef
             Ingredient oli = new Ingredient("oli", Unitat.ML);
             Ingredient brouMarisc = new Ingredient("brou de marisc", Unitat.ML);
             Ingredient mozzarella = new Ingredient("mozzarella", Unitat.G);
-            Ingredient salsaTomaquet = new Ingredient("salsaTomaquet", Unitat.G);
+            Ingredient salsaTomaquet = new Ingredient("salsa tomaquet", Unitat.G);
             Ingredient formatgeBlau = new Ingredient("formatge blau", Unitat.G);
             Ingredient formatgeParmesa = new Ingredient("formatge parmesà", Unitat.G);
             Ingredient formatgeRuloCabra = new Ingredient("formatge rulo de cabra", Unitat.G);
@@ -124,7 +122,7 @@ namespace le_petit_chef
 
         private bool validarFormulariAltaIngredients()
         {
-            return Ingredient.validaNom(txtNouIngredient.Text) && cbxUnitatMesura.SelectedItem != null && !ingredients.Contains(new Ingredient(txtNouIngredient.Text, Unitat.G));
+            return Ingredient.validaNom(txtNouIngredient.Text) && cbxUnitatMesura.SelectedItem != null && !ingredients.Contains(new Ingredient(txtNouIngredient.Text.ToLower(), Unitat.G));
         }
 
         private void activarDesactivarButtonBaixaIngredients()
@@ -253,6 +251,7 @@ namespace le_petit_chef
             plats.Add(nouPlat);
             buidarCampsFormulariAltaPlats();
             lsbPlats.SelectedItem = null;
+            netejarInforme();
         }
 
         private void buidarCampsFormulariAltaPlats()
@@ -269,6 +268,7 @@ namespace le_petit_chef
                 plats.Remove((Plat)lsbPlats.SelectedItem);
             }
             activarDesactivarButtonBaixaPlats();
+            netejarInforme();
         }
 
         private void cbxIngredientsPlat_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -300,6 +300,7 @@ namespace le_petit_chef
                     lsbIngredientsPlat.ItemsSource = plats[lsbPlats.SelectedIndex].getLlistaIngredients();
                 }
                 netejarFormulariIngredientPlat();
+                netejarInforme();
             }
         }
 
@@ -312,6 +313,7 @@ namespace le_petit_chef
                 lsbIngredientsPlat.ItemsSource = plats[lsbPlats.SelectedIndex].getLlistaIngredients();
             }
             activarDesactivarButtonEsborrarIngredient();
+            netejarInforme();
         }
 
         private void netejarFormulariIngredientPlat()
@@ -361,6 +363,11 @@ namespace le_petit_chef
         private void lsbIngredientsPlat_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             activarDesactivarButtonEsborrarIngredient();
+        }
+
+        private void netejarInforme()
+        {
+            txbComanda.Text = "";
         }
     }
 }

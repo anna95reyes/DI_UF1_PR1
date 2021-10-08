@@ -111,7 +111,7 @@ namespace le_petit_chef.Model
         // Validacio del Codi en format AA0000, dos lletres i 4 xifres.
         public static bool validaCodi(string codi)
         {
-            return Regex.Match(codi, "^[A-Z]{2}[0-9]{4}", RegexOptions.IgnoreCase).Success;
+            return Regex.Match(codi, "^[A-Z]{2}[0-9]{4}$").Success;
         }
 
         //Validacio del nom, retornant true si te 5 caracters o mes i retornant false en cas contrari.

@@ -22,18 +22,17 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"
-                           FontSize="40" Foreground ="#FF00CDFF">
-                    <Bold>Ingredients</Bold>
-            </TextBlock>
-            <TextBlock Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"
-                           FontSize="40" Foreground ="#FF00CDFF">
-                    <Bold>Plats</Bold>
-            </TextBlock>
-            <TextBlock Grid.Column="3"  HorizontalAlignment="Center" VerticalAlignment="Center"
-                           FontSize="40" Foreground ="#FF00CDFF">
-                    <Bold>Informe de Compres</Bold>
-            </TextBlock>
+            <TextBlock Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"
+                           FontSize="40" Foreground ="#FF00CDFF" Text="Ingredients"/>
+
+            <TextBlock Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"
+                           FontSize="40" Foreground ="#FF00CDFF" Text="Plats"/>
+
+            <TextBlock Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" TextWrapping="Wrap"
+                           FontSize="40" Foreground ="#FF00CDFF" Text="Ingredients del Plat" TextAlignment="Center"/>
+            <TextBlock Grid.Column="3"  HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" TextWrapping="Wrap"
+                           FontSize="40" Foreground ="#FF00CDFF" Text="Informe de Compres" TextAlignment="Center"/>
+
         </Grid>
 
         <Grid Grid.Row="1">
@@ -67,14 +66,10 @@
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="auto"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" VerticalAlignment="Center" Margin="5">
-                        <Bold>Ingredient:</Bold>
-                    </TextBlock>
+                    <TextBlock Grid.Column="0" VerticalAlignment="Center" Margin="5"  FontWeight="Bold" Text="Ingredient:"/>
                     <TextBox x:Name="txtNouIngredient" Grid.Column="1" VerticalAlignment="Center" Margin="5, 5, 10, 5" 
                              TextChanged="txtNouIngredient_TextChanged" HorizontalAlignment="Stretch"></TextBox>
-                    <TextBlock Grid.Column="2" VerticalAlignment="Center" Margin="5">
-                        <Bold>Unitat:</Bold>
-                    </TextBlock>
+                    <TextBlock Grid.Column="2" VerticalAlignment="Center" Margin="5" FontWeight="Bold" Text="Unitat:"/>
                     <ComboBox x:Name="cbxUnitatMesura" Grid.Column="3" VerticalAlignment="Center" Margin="5" 
                               SelectionChanged="cbxUnitatMesura_SelectionChanged" Width="70"></ComboBox>
                 </Grid>
@@ -109,18 +104,12 @@
                     </Grid.RowDefinitions>
                     <ListBox x:Name="lsbPlats" SelectionChanged="lsbPlats_SelectionChanged" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" 
                              Margin="10" Background="#FFCEFFCA"></ListBox>
-                    <TextBlock Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5">
-                        <Bold>Codi:</Bold>
-                    </TextBlock>
+                    <TextBlock Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5" FontWeight="Bold" Text="Codi:"/>
                     <TextBox x:Name="txtCodiPlat" TextChanged="txtCodiPlat_TextChanged" Grid.Column="1" Grid.Row="1" Margin="5,5,10,5"
                              PlaceholderText="AA0000"></TextBox>
-                    <TextBlock Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5">
-                        <Bold>Nom:</Bold>
-                    </TextBlock>
+                    <TextBlock Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5" FontWeight="Bold" Text="Nom:"/>
                     <TextBox x:Name="txtNomPlat" TextChanged="txtNomPlat_TextChanged"  Grid.Column="1" Grid.Row="2" Margin="5,5,10,5"></TextBox>
-                    <TextBlock Grid.Column="0" Grid.Row="3" VerticalAlignment="Top"  HorizontalAlignment="Right" Margin="15,5,5,5">
-                        <Bold>Descripcio:</Bold>
-                    </TextBlock>
+                    <TextBlock Grid.Column="0" Grid.Row="3" VerticalAlignment="Top"  HorizontalAlignment="Right" Margin="15,5,5,5" FontWeight="Bold" Text="Descripcio:"/>
                     <TextBox x:Name="txtDescPlat" TextChanged="txtDescPlat_TextChanged"  Grid.Column="1" Grid.Row="3" Margin="5,5,10,5"
                              AcceptsReturn="True" TextWrapping="Wrap"></TextBox>
                     <Grid Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2">
@@ -148,13 +137,9 @@
                     </Grid.RowDefinitions>
                     <ListBox x:Name="lsbIngredientsPlat" Grid.Row="0" Grid.ColumnSpan="2"
                              Margin="10" Background="#FFCEFFCA" SelectionChanged="lsbIngredientsPlat_SelectionChanged"></ListBox>
-                    <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="15,5,5,5">
-                        <Bold>Ingredient:</Bold>
-                    </TextBlock>
+                    <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="15,5,5,5" FontWeight="Bold" Text="Ingredient:"/>
                     <ComboBox x:Name="cbxIngredientsPlat" SelectionChanged="cbxIngredientsPlat_SelectionChanged"  Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" Margin="10"></ComboBox>
-                    <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5">
-                        <Bold>Quantitat:</Bold>
-                    </TextBlock>
+                    <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5" FontWeight="Bold" Text="Quantitat:"/>
                     <TextBox x:Name="txtQtatIngredientsPlat" TextChanged="txtQtatIngredientsPlat_TextChanged" Grid.Row="2" Grid.Column="1" Margin="10"
                              PlaceholderText="Numero senser, sense decimals"></TextBox>
                     <Grid Grid.Row="3" Grid.ColumnSpan="2" Margin="10">
@@ -186,9 +171,7 @@
                 <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Background="#FFCEFFCA">
                     <TextBlock x:Name="txbComanda" TextWrapping="Wrap" Margin="10"></TextBlock>
                 </Grid>
-                <TextBlock Grid.Row="1" Grid.Column="0"  VerticalAlignment="Center" Margin="10">
-                        <Bold>Qtat. plats:</Bold>
-                </TextBlock>
+                <TextBlock Grid.Row="1" Grid.Column="0"  VerticalAlignment="Center" Margin="10" FontWeight="Bold" Text="Qtat. plats:"/>
                 <Slider x:Name="sdrComanda" Grid.Row="1" Grid.Column="1" Minimum="0" Maximum="300" Value="1" ValueChanged="sdrComanda_ValueChanged" Margin="10"></Slider>
                 <TextBlock x:Name="txbSliderComanda" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" Margin="10" Text="1" FontWeight="Black"></TextBlock>
                 <Button x:Name="btnComandaCompres" Content="Informe de Compres" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" HorizontalAlignment="Center"

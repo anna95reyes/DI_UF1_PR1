@@ -67,7 +67,7 @@ namespace le_petit_chef.Model
         {
             get
             {
-                return Nom.ToLowerInvariant();
+                return Nom;
             }
         }
 

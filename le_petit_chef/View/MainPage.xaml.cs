@@ -119,6 +119,7 @@ namespace le_petit_chef
             btnAltaPlat.IsEnabled = false;
             btnBaixaPlat.IsEnabled = false;
             btnAfegirIngredientPlat.IsEnabled = false;
+            btnBaixaIngredientPlat.IsEnabled = false;
         }
 
         private bool validarFormulariAltaIngredients()
@@ -191,7 +192,6 @@ namespace le_petit_chef
             activarDesactivarButtonAltaIngredients();
         }
 
-        //TODO: representar be la llista dels ingredients dins del plat, en format: [nom ingredient] [quantitat] [unitat]
         private void lsbPlats_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (lsbPlats.SelectedValue != null)
@@ -199,6 +199,7 @@ namespace le_petit_chef
                 lsbIngredientsPlat.ItemsSource = plats[lsbPlats.SelectedIndex].getLlistaIngredients();
                 activarDesactivarButtonBaixaPlats();
                 activarDesactivarButtonAfegirIngredient();
+                activarDesactivarButtonEsborrarIngredient();
             }
         }
 
@@ -284,7 +285,11 @@ namespace le_petit_chef
             activarDesactivarButtonAfegirIngredient();
         }
 
-        //TODO: actualitzar la llista de diccionaris
+        private void activarDesactivarButtonEsborrarIngredient()
+        {
+            btnBaixaIngredientPlat.IsEnabled = lsbIngredientsPlat.SelectedItem != null;
+        }
+
         private void btnAfegirIngredientPlat_Click(object sender, RoutedEventArgs e)
         {
             if (lsbPlats.SelectedValue != null)
@@ -296,6 +301,17 @@ namespace le_petit_chef
                 }
                 netejarFormulariIngredientPlat();
             }
+        }
+
+        private void btnABaixaIngredientPlat_Click(object sender, RoutedEventArgs e)
+        {
+            if (lsbIngredientsPlat.SelectedItem != null)
+            {
+
+                plats[lsbPlats.SelectedIndex].esborrarIngredient(plats[lsbPlats.SelectedIndex].Ingredients.ElementAt(lsbIngredientsPlat.SelectedIndex).Key);
+                lsbIngredientsPlat.ItemsSource = plats[lsbPlats.SelectedIndex].getLlistaIngredients();
+            }
+            activarDesactivarButtonEsborrarIngredient();
         }
 
         private void netejarFormulariIngredientPlat()
@@ -313,52 +329,38 @@ namespace le_petit_chef
             }
         }
 
-        //TODO: programar funcionalitat boto Comandes Compres
         private void btnComandaCompres_Click(object sender, RoutedEventArgs e)
         {
-            /*
-            
-            ObservableCollection<String> llistaIngredients = new ObservableCollection<String>();
-            List<Ingredient> ingredientsDins = new List<Ingredient>();
-            ingredientsDins = ingredients.Keys.ToList();
-            for (int i = 0; i < ingredients.Count; i++)
-            {
-                llistaIngredients.Add(ingredientsDins[i].Nom + " " + ingredients[ingredientsDins[i]].ToString() + " " 
-                    + EnumDescriptionConverter.getDesc(ingredientsDins[i].Unitat));
-            }
 
-            */
-
-            String sortida = "";
+            String informe = "";
             Dictionary<Ingredient, int> ingredientsAComprar = new Dictionary<Ingredient, int>();
             for (int i = 0; i < plats.Count; i++)
             {
-                /*
-                List<Ingredient> ingredientsDinsPlat = new List<Ingredient>();
-                ingredientsDinsPlat = plats[i].Ingredients.Keys.ToList();
-                List<Int32> qtatIngredientDinsPlat = new List<Int32>();
-                int j = 0;
-                foreach (Ingredient ing in ingredientsDinsPlat)
+                foreach (Ingredient ing in plats[i].Ingredients.Keys)
                 {
-                    if (ingredientsAComprar.ContainsKey(ing))
+                    if (ingredientsAComprar.TryAdd(ing, plats[i].Ingredients[ing]))
                     {
-                        ingredientsAComprar[ing] = qtatIngredientDinsPlat[j] + ingredientsAComprar[ing];
+                        ingredientsAComprar.TryAdd(ing, plats[i].Ingredients[ing]); //Faig el TryAdd encomptes del Add peque si no peta
                     }
                     else
                     {
-                        ingredientsAComprar.Add(ing, ingredientsAComprar[ing]);
+                        ingredientsAComprar[ing] += plats[i].Ingredients[ing];
                     }
-                    j++;
                 }
-                */
             }
 
             int q = 1;
             foreach (KeyValuePair<Ingredient,int> ing in ingredientsAComprar)
             {
-                sortida += q + ".-" + ing.Key.Nom + ": " + ing.Value + " " + EnumDescriptionConverter.getDesc(ing.Key.Unitat) + "\n";
+                informe += q + ".- " + ing.Key.Nom + ": " + ing.Value * sdrComanda.Value + " " + EnumDescriptionConverter.getDesc(ing.Key.Unitat) + "\n\n";
                 q++;
             }
+            txbComanda.Text = informe;
+        }
+
+        private void lsbIngredientsPlat_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            activarDesactivarButtonEsborrarIngredient();
         }
     }
 }

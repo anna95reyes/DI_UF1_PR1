@@ -85,6 +85,11 @@ namespace le_petit_chef.Model
             ingredients.Add(nouIngredient, qtat);
         }
 
+        public void esborrarIngredient(Ingredient ingredientAEsborrar)
+        {
+            ingredients.Remove(ingredientAEsborrar);
+        }
+
         public ObservableCollection<String> getLlistaIngredients()
         {
             ObservableCollection<String> llistaIngredients = new ObservableCollection<String>();

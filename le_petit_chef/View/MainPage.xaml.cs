@@ -37,13 +37,17 @@ namespace le_petit_chef
         {
             inicialitzacioLlistes();
             lsbIngredients.ItemsSource = ingredients;
-            cbxUnitatMesura.ItemsSource = Enum.GetValues(typeof(Unitat)).Cast<Unitat>();
+            //Aixo serveix per poder agafar el valor de la Enumeracio
+            cbxUnitatMesura.ItemsSource = Enum.GetValues(typeof(Unitat)).Cast<Unitat>(); 
             lsbPlats.ItemsSource = plats;
             cbxIngredientsPlat.ItemsSource = ingredients;
 
             desactivarBotons();
         }
 
+        /*
+         * Inicialitzo totes les dades d'exemple perque la aplicació no estigui buida
+         */
         private void inicialitzacioLlistes()
         {
             Ingredient pebrotVermell = new Ingredient("pebrot vermell", Unitat.UDS);
@@ -63,7 +67,7 @@ namespace le_petit_chef
             Ingredient sal = new Ingredient("sal", Unitat.G);
             Ingredient aigua = new Ingredient("aigua", Unitat.ML);
             Ingredient ou = new Ingredient("ou", Unitat.UDS);
-            Ingredient llet = new Ingredient("llet", Unitat.UDS);
+            Ingredient llet = new Ingredient("llet", Unitat.ML);
 
             ingredients.Add(pebrotVermell);
             ingredients.Add(tomaquet);
@@ -110,6 +114,12 @@ namespace le_petit_chef
             plats.Add(pizza);
         }
 
+        /*
+         * Aquesta funcio la crido nomes en el Page_Loaded i el que fa es desactivar tots els botons,
+         * quan s'inicia l'aplicacio es pot veure que el btnComandaCompres esta activat, no el posso aqui perque li
+         * tinc posat que el valor per defecte sigui 1 quantitat de plats (1 comensal), pero per exemple,
+         * si li poses un valor 0 es queda desactivat perque no te sentit treure l'informe de compres si no tens cap comensal.
+         */
         private void desactivarBotons()
         {
             btnAltaIngredient.IsEnabled = false;
@@ -120,21 +130,29 @@ namespace le_petit_chef
             btnBaixaIngredientPlat.IsEnabled = false;
         }
 
-        private bool validarFormulariAltaIngredients()
-        {
-            return Ingredient.validaNom(txtNouIngredient.Text) && cbxUnitatMesura.SelectedItem != null && !ingredients.Contains(new Ingredient(txtNouIngredient.Text.ToLower(), Unitat.G));
-        }
-
+        /*
+         * Per poder activar el boto de la Baixa dels Ingredients, comprobo que hi haigui algun ingredient seleccionat
+         * i que l'ingredient no estigui sent utilitzant en algun plat.
+         * Si alguna d'aquestes dues comprovacions no es valida, el boto es quedara desactivat
+         */
         private void activarDesactivarButtonBaixaIngredients()
         {
-            btnBaixaIngredient.IsEnabled = ingredients.Count > 0 && lsbIngredients.SelectedValue != null && !ingredientDinsDelPlat((Ingredient)lsbIngredients.SelectedItem);
+            btnBaixaIngredient.IsEnabled = lsbIngredients.SelectedValue != null && !ingredientDinsDelPlat((Ingredient)lsbIngredients.SelectedItem);
         }
 
+        /*
+         * Per poder activar el boto del Alta dels Ingredients, comprobo que el nom sigui valid, que tiguem una unitat sel·leccionada,
+         * i que l'ingredient no estigui repetit, tambe comprobo que el nom no estigui en minuscules i es vulgui afegir el mateix plat en mayuscules o viceversa.
+         * Si alguna d'aquestes tres comprobacions no son valides, el boto es quedara desactivat
+         */
         private void activarDesactivarButtonAltaIngredients()
         {
-            btnAltaIngredient.IsEnabled = validarFormulariAltaIngredients();
+            btnAltaIngredient.IsEnabled = Ingredient.validaNom(txtNouIngredient.Text) && cbxUnitatMesura.SelectedItem != null && !ingredients.Contains(new Ingredient(txtNouIngredient.Text.ToLower(), Unitat.G));
         }
 
+        /*
+         * Quan selecciono un ingredient, comprobo realment que tinc un ingredient i activo el boto de Baixa dels Ingredients.
+         */
         private void lsbIngredients_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (lsbIngredients.SelectedValue != null)
@@ -142,7 +160,6 @@ namespace le_petit_chef
                 activarDesactivarButtonBaixaIngredients();
             }
         }
-
 
         private void btnAltaIngredient_Click(object sender, RoutedEventArgs e)
         {
@@ -169,15 +186,7 @@ namespace le_petit_chef
 
         private bool ingredientDinsDelPlat(Ingredient ingredient)
         {
-            for (int i = 0; i < plats.Count; i++)
-            {
-                if (plats[i].Ingredients.ContainsKey(ingredient))
-                {
-                    return true;
-                }
-            }
-
-            return false;
+            return plats[lsbPlats.SelectedIndex].Ingredients.ContainsKey(ingredient);
         }
 
         private void txtNouIngredient_TextChanged(object sender, TextChangedEventArgs e)
@@ -251,7 +260,6 @@ namespace le_petit_chef
             plats.Add(nouPlat);
             buidarCampsFormulariAltaPlats();
             lsbPlats.SelectedItem = null;
-            netejarInforme();
         }
 
         private void buidarCampsFormulariAltaPlats()
@@ -266,9 +274,10 @@ namespace le_petit_chef
             if (lsbPlats.SelectedValue != null)
             {
                 plats.Remove((Plat)lsbPlats.SelectedItem);
+                lsbIngredientsPlat.ItemsSource = null;
+                netejarInforme();
             }
             activarDesactivarButtonBaixaPlats();
-            netejarInforme();
         }
 
         private void cbxIngredientsPlat_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -365,6 +374,9 @@ namespace le_petit_chef
             activarDesactivarButtonEsborrarIngredient();
         }
 
+        /*
+         * Netejo l'informe quan s'afegeix o s'esborra qualsevol ingredient del plat
+         */
         private void netejarInforme()
         {
             txbComanda.Text = "";

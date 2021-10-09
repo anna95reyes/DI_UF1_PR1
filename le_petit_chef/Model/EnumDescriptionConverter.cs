@@ -11,6 +11,9 @@ namespace le_petit_chef.Model
 {
     public class EnumDescriptionConverter : IValueConverter
     {
+        /*
+         * Aquesta classe serveix poder agafar el Description d'una Enumeracio
+         */
         private string GetEnumDescription(Enum enumObj)
         {
             FieldInfo fieldInfo = enumObj.GetType().GetField(enumObj.ToString());

@@ -74,10 +74,20 @@
                               SelectionChanged="cbxUnitatMesura_SelectionChanged" Width="70"></ComboBox>
                 </Grid>
             
-                <Button x:Name="btnAltaIngredient" Content="Alta Ingredient" Grid.Column="0" Grid.Row="2" Margin="10" HorizontalAlignment="Center"
-                        Click="btnAltaIngredient_Click" BorderBrush="#FF00CDFF" Background="#FF73F3EC"></Button>
-                <Button x:Name="btnBaixaIngredient" Content="Baixa Ingredient" Grid.Column="1" Grid.Row="2" Margin="10" HorizontalAlignment="Center"
-                        Click="btnBaixaIngredient_Click" BorderBrush="#FF00CDFF" Background="#FF73F3EC"></Button>
+                <Button x:Name="btnAltaIngredient" Grid.Column="0" Grid.Row="2" Margin="10" HorizontalAlignment="Center"
+                        Click="btnAltaIngredient_Click" BorderBrush="#FF00CDFF" Background="#FFCEFBF9">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Assets/icons8-floppy-disk-64.png" Width="30" />
+                        <TextBlock Margin="5" VerticalAlignment="Center">Alta Ingredient</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="btnBaixaIngredient" Grid.Column="1" Grid.Row="2" Margin="10" HorizontalAlignment="Center"
+                        Click="btnBaixaIngredient_Click" BorderBrush="#FF00CDFF" Background="#FFCEFBF9">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Assets/icons8-delete-64.png" Width="30" />
+                        <TextBlock Margin="5" VerticalAlignment="Center">Baixa Ingredient</TextBlock>
+                    </StackPanel>
+                </Button>
             </Grid>
 
             <!-- plats -->
@@ -117,10 +127,20 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Button x:Name="btnAltaPlat" Content="Alta Plat"  Grid.Column="0" Margin="10" HorizontalAlignment="Center"
-                            Click="btnAltaPlat_Click"  BorderBrush="#FF00CDFF" Background="#FF73F3EC"></Button>
-                        <Button x:Name="btnBaixaPlat" Content="Baixa Plat" Grid.Column="1" Margin="10" HorizontalAlignment="Center"
-                            Click="btnBaixaPlat_Click"  BorderBrush="#FF00CDFF" Background="#FF73F3EC"></Button>
+                        <Button x:Name="btnAltaPlat" Grid.Column="0" Margin="10" HorizontalAlignment="Center"
+                            Click="btnAltaPlat_Click"  BorderBrush="#FF00CDFF" Background="#FFCEFBF9">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/Assets/icons8-floppy-disk-64.png" Width="30" />
+                                <TextBlock Margin="5" VerticalAlignment="Center">Alta Plat</TextBlock>
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="btnBaixaPlat" Grid.Column="1" Margin="10" HorizontalAlignment="Center"
+                            Click="btnBaixaPlat_Click"  BorderBrush="#FF00CDFF" Background="#FFCEFBF9">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/Assets/icons8-delete-64.png" Width="30" />
+                                <TextBlock Margin="5" VerticalAlignment="Center">Baixa Plat</TextBlock>
+                            </StackPanel>
+                        </Button>
                     </Grid>
                 </Grid>
 
@@ -147,10 +167,20 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Button x:Name="btnAfegirIngredientPlat" Grid.Column="0" Content="Afegir Ingredient" HorizontalAlignment="Center"
-                                Click="btnAfegirIngredientPlat_Click"  BorderBrush="#FF00CDFF" Background="#FF73F3EC"></Button>
-                        <Button x:Name="btnBaixaIngredientPlat" Grid.Column="1" Content="Esborrar Ingredient" HorizontalAlignment="Center"
-                                Click="btnABaixaIngredientPlat_Click"  BorderBrush="#FF00CDFF" Background="#FF73F3EC"></Button>
+                        <Button x:Name="btnAfegirIngredientPlat" Grid.Column="0" HorizontalAlignment="Center"
+                                Click="btnAfegirIngredientPlat_Click"  BorderBrush="#FF00CDFF" Background="#FFCEFBF9">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/Assets/icons8-floppy-disk-64.png" Width="30" />
+                                <TextBlock Margin="5" VerticalAlignment="Center">Afegir Ingredient</TextBlock>
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="btnBaixaIngredientPlat" Grid.Column="1" HorizontalAlignment="Center"
+                                Click="btnABaixaIngredientPlat_Click"  BorderBrush="#FF00CDFF" Background="#FFCEFBF9">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/Assets/icons8-delete-64.png" Width="30" />
+                                <TextBlock Margin="5" VerticalAlignment="Center">Esborrar Ingredient</TextBlock>
+                            </StackPanel>
+                        </Button>
                     </Grid>
                     
                 </Grid>
@@ -174,8 +204,13 @@
                 <TextBlock Grid.Row="1" Grid.Column="0"  VerticalAlignment="Center" Margin="10" FontWeight="Bold" Text="Qtat. plats:"/>
                 <Slider x:Name="sdrComanda" Grid.Row="1" Grid.Column="1" Minimum="0" Maximum="300" Value="1" ValueChanged="sdrComanda_ValueChanged" Margin="10"></Slider>
                 <TextBlock x:Name="txbSliderComanda" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" Margin="10" Text="1" FontWeight="Black"></TextBlock>
-                <Button x:Name="btnComandaCompres" Content="Informe de Compres" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" HorizontalAlignment="Center"
-                        Click="btnComandaCompres_Click"  BorderBrush="#FF00CDFF" Background="#FF73F3EC"></Button>
+                <Button x:Name="btnComandaCompres" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" HorizontalAlignment="Center"
+                        Click="btnComandaCompres_Click"  BorderBrush="#FF00CDFF" Background="#FFCEFBF9">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Assets/icons8-wishlist-64.png" Width="30" />
+                        <TextBlock Margin="5" VerticalAlignment="Center">Informe de Compres</TextBlock>
+                    </StackPanel>
+                </Button>
             </Grid>
         </Grid>
     </Grid>

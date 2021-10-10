@@ -137,7 +137,7 @@ namespace le_petit_chef
          */
         private void activarDesactivarButtonBaixaIngredients()
         {
-            btnBaixaIngredient.IsEnabled = lsbIngredients.SelectedValue != null && !ingredientDinsDelPlat((Ingredient)lsbIngredients.SelectedItem);
+            btnBaixaIngredient.IsEnabled = lsbIngredients.SelectedValue != null && !ingredientUtilitzat((Ingredient)lsbIngredients.SelectedItem);
         }
 
         /*
@@ -161,6 +161,13 @@ namespace le_petit_chef
             }
         }
 
+        /*
+         * Quan es pot clicar sobre el boto de l'Alta dels Ingredients, vol dir que tots els camps del formulari son correctes, per tant
+         * arribats a aquest punt afegeixo el ingredient nou i buido el formulari.
+         * Deixo el listBox de ingredents sense seleccionar perque considero que es l'usuari que ha de clicar sobre l'ingredient que vulgui per poder esborrar-lo,
+         * ja que aquest programa no permet fer modificacions, i no podem fer cap validacio de si l'usuari realment vol esborrar l'ingredient,
+         * d'aquesta manera, considero que si un ingredient es borra es perque l'usuari es conscient de fer-ho.
+         */
         private void btnAltaIngredient_Click(object sender, RoutedEventArgs e)
         {
             Ingredient nouIngredient = new Ingredient(txtNouIngredient.Text, (Unitat)cbxUnitatMesura.SelectedItem);
@@ -169,12 +176,22 @@ namespace le_petit_chef
             lsbIngredients.SelectedItem = null;
         }
 
+        /*
+         * Aquesta funcio l'unic que fa es deixar en blanc el textBox dels ingredients i deseleccionar el combobox. Aquesta funcio la crido quan
+         * es crea un nou ingredient per aixi deixar els camps en blanc despres de haber fer el add
+         */
         private void buidarCampsFormulariAltaIngredients()
         {
             txtNouIngredient.Text = "";
             cbxUnitatMesura.SelectedItem = null;
         }
 
+        /*
+         * Quan s'activa aquest boto significa que tenim en sel·leccio un ingredient el qual no s'esta utilitzant en cap plat
+         * Igualment, comprobo que la seleccio no sigui nila i esborro els ingredients, al fer aquest pas torno a cridar la funcio
+         * que activa o desactiva el btnBaixaIngredient perque en aquest cas el desactivi fins que no es torni a sel·leccionar un 
+         * ingredient que es pugui esborrar.
+         */
         private void btnBaixaIngredient_Click(object sender, RoutedEventArgs e)
         {
             if (lsbIngredients.SelectedValue != null)
@@ -184,7 +201,22 @@ namespace le_petit_chef
             activarDesactivarButtonBaixaIngredients();
         }
 
-        private bool ingredientDinsDelPlat(Ingredient ingredient)
+        /*
+         * 
+         */
+        private bool ingredientUtilitzat(Ingredient ingredient)
+        {
+            for (int i = 0; i < plats.Count; i++)
+            {
+                if (plats[i].Ingredients.ContainsKey(ingredient))
+                {
+                    return true;
+                }   
+            }
+            return false;
+        }
+
+        private bool ingredientDinsDelPlatSeleccionat(Ingredient ingredient)
         {
             return plats[lsbPlats.SelectedIndex].Ingredients.ContainsKey(ingredient);
         }
@@ -303,7 +335,7 @@ namespace le_petit_chef
         {
             if (lsbPlats.SelectedValue != null)
             {
-                if (!ingredientDinsDelPlat((Ingredient)cbxIngredientsPlat.SelectedItem))
+                if (!ingredientDinsDelPlatSeleccionat((Ingredient)cbxIngredientsPlat.SelectedItem))
                 {
                     plats[lsbPlats.SelectedIndex].afegirIngredient((Ingredient)cbxIngredientsPlat.SelectedItem, Convert.ToInt32(txtQtatIngredientsPlat.Text));
                     lsbIngredientsPlat.ItemsSource = plats[lsbPlats.SelectedIndex].getLlistaIngredients();
@@ -375,7 +407,8 @@ namespace le_petit_chef
         }
 
         /*
-         * Netejo l'informe quan s'afegeix o s'esborra qualsevol ingredient del plat
+         * Netejo l'informe quan s'afegeix o s'esborra qualsevol ingredient del plat i quan s'esborra el plat ja que aquestes tres accions poden
+         * fer variar l'informe.
          */
         private void netejarInforme()
         {

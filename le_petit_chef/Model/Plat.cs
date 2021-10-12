@@ -19,6 +19,9 @@ namespace le_petit_chef.Model
 
         private const int NOM_CARACTERS_MINIM = 5;
 
+        /*
+         * Constructor amb camps obligatoris
+         */
         public Plat(string codi, string nom)
         {
             Codi = codi;
@@ -26,6 +29,9 @@ namespace le_petit_chef.Model
             ingredients = new Dictionary<Ingredient, int>();
         }
 
+        /*
+         * Constructor amb tots els camps, obligatoris i opcionals
+         */
         public Plat(string codi, string nom, string descripcio)
         {
             Codi = codi;
@@ -34,6 +40,9 @@ namespace le_petit_chef.Model
             ingredients = new Dictionary<Ingredient, int>();
         }
 
+        /*
+         * Setter i Getter de codi
+         */
         public string Codi { 
             get
             {
@@ -46,6 +55,9 @@ namespace le_petit_chef.Model
             }
         }
 
+        /*
+         * Setter i Getter de nom
+         */
         public string Nom {
             get
             {
@@ -56,6 +68,10 @@ namespace le_petit_chef.Model
                 nom = value; 
             } 
         }
+
+        /*
+         * Setter i Getter de descripcio
+         */
         public string Descripcio {
             get
             {
@@ -67,6 +83,9 @@ namespace le_petit_chef.Model
             }
         }
 
+        /*
+         * Setter i Getter del diccionari d'ingredients
+         */
         public Dictionary<Ingredient, int> Ingredients
         {
             get
@@ -79,17 +98,27 @@ namespace le_petit_chef.Model
             }
         }
 
+        /*
+         * Metode per afegir ingredients dins del diccionari
+         */
         public void afegirIngredient(Ingredient nouIngredient, int qtat)
         {
             if (IngredientRepetit(nouIngredient)) throw new Exception("L'ingredient no pot estar repetit.");
             ingredients.Add(nouIngredient, qtat);
         }
 
+        /*
+         * Metode per esborrar ingredients dins del diccionari
+         */
         public void esborrarIngredient(Ingredient ingredientAEsborrar)
         {
             ingredients.Remove(ingredientAEsborrar);
         }
 
+        /*
+         * Metode per treure els ingredients del diccionari, la KEY, per poder veure els ingredients de dins del plat.
+         * Aquest metode el faig servir per visualitzar la llista dels ingredients dels plats de forma correcta
+         */
         public ObservableCollection<String> getLlistaIngredients()
         {
             ObservableCollection<String> llistaIngredients = new ObservableCollection<String>();
@@ -103,18 +132,25 @@ namespace le_petit_chef.Model
             return llistaIngredients;
         }
 
+        /*
+         * Validacio que comproba si un ingredient esta repetit dins del plat
+         */
         private bool IngredientRepetit(Ingredient nouIngredient)
         {
             return ingredients.ContainsKey(new Ingredient(nouIngredient.Nom, Unitat.G));
         }
 
-        // Validacio del Codi en format AA0000, dos lletres i 4 xifres.
+        /*
+         * Validacio del Codi en format AA0000, dos lletres i 4 xifres.
+         */
         public static bool validaCodi(string codi)
         {
             return Regex.Match(codi, "^[A-Z]{2}[0-9]{4}$").Success;
         }
 
-        //Validacio del nom, retornant true si te 5 caracters o mes i retornant false en cas contrari.
+        /*
+         * Validacio del nom, retornant true si te 5 caracters o mes i retornant false en cas contrari.
+         */
         public static bool validaNom(string nom)
         {
             return nom.Length >= NOM_CARACTERS_MINIM;

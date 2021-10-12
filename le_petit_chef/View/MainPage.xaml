@@ -175,7 +175,7 @@
                             </StackPanel>
                         </Button>
                         <Button x:Name="btnBaixaIngredientPlat" Grid.Column="1" HorizontalAlignment="Center"
-                                Click="btnABaixaIngredientPlat_Click"  BorderBrush="#FF00CDFF" Background="#FFCEFBF9">
+                                Click="btnBaixaIngredientPlat_Click"  BorderBrush="#FF00CDFF" Background="#FFCEFBF9">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="/Assets/icons8-delete-64.png" Width="30" />
                                 <TextBlock Margin="5" VerticalAlignment="Center">Esborrar Ingredient</TextBlock>
